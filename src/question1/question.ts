@@ -1,39 +1,23 @@
 const partA = async (input: number[], sumGoal: number = 2020) => {
-  const inputDictionary: { [key: number]: number[] } = {}
-
-  input.forEach((item, index) => {
-    if (inputDictionary.hasOwnProperty(item))
-      inputDictionary[item].push(index)
-    else
-      inputDictionary[item] = [index]
-  })
-
-  for (let item of input) {
-    if (!inputDictionary.hasOwnProperty(sumGoal-item))
-      continue
-      
-    const isSameInputNumber = (number: number) => {
-      return item == sumGoal / 2 && inputDictionary[number].length == 1
-    }  
-    if (isSameInputNumber(item))
-      continue
-    
-    return item * (sumGoal-item)
+  let increaseCount = 0
+  for (let index = 1; index < input.length; index++) {
+    const element = input[index];
+    if(element > input[index-1]) increaseCount++
   }
-
-  return null
+  console.log(increaseCount);
+  
+  return increaseCount
 }
 
 const partB = async (input: number[]) => {
-  for (let firstIndex = 0; firstIndex < input.length; firstIndex++) {
-    const subResult = await partA(input, 2020-input[firstIndex])
-    if (!subResult)
-      continue
-    
-    return subResult * input[firstIndex]
+  let increaseCount = 0
+  let prevSum = 100000000000000000000000000000
+  for (let index = 2; index < input.length; index+=1) {
+    const windowSum = input[index] + input[index-1] + input[index-2]
+    if(windowSum > prevSum) increaseCount ++
+    prevSum = windowSum
   }
-
-  return null
+  return increaseCount
 }
 
 export default {
