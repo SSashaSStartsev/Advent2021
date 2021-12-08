@@ -5,7 +5,7 @@ const partA = async (input: string[]) => {
 
   pastFuel = pastFuel.map((x,index)=> {
     var runningSum = 0
-    crabs.forEach((crab)=>runningSum +=(Math.abs(index - crab)))
+    crabs.forEach((crab) => runningSum +=(Math.abs(index - crab)))
     return runningSum
   })
 
